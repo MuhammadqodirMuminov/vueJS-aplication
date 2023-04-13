@@ -4,6 +4,8 @@
       <img :src="logo" alt="logo" style="width: 100px; cursor: pointer" />
       <h1 class="h3 mb-3 fw-normal mt-3">Register</h1>
 
+      <ValidationError v-if="errorMessage" :errorMessage="errorMessage" />
+
       <Input :label="'Name'" :type="'text'" v-model="username" />
       <Input :label="'Email address'" :type="'email'" v-model="email" />
       <Input :label="'Password'" :type="'password'" v-model="password" />
@@ -17,6 +19,8 @@
 
 <script>
 import { logo } from "../contstants";
+import ValidationError from "./ValidationError.vue";
+
 export default {
   data() {
     return {
@@ -24,6 +28,7 @@ export default {
       username: "",
       email: "",
       password: "",
+      error: "",
     };
   },
 
@@ -31,12 +36,37 @@ export default {
     isLoading() {
       return this.$store.state.auth.isLoading;
     },
+
+    errorMessage() {
+      return this.$store.state.auth.error;
+    },
+  },
+
+  components: {
+    ValidationError,
   },
 
   methods: {
     submitHandler(e) {
       e.preventDefault();
-      this.$store.dispatch("register");
+
+      const data = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      };
+
+      this.$store
+        .dispatch("register", data)
+        .then((res) => {
+          this.$router.push({ name: "home" });
+          this.username = "";
+          this.email = "";
+          this.password = "";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
