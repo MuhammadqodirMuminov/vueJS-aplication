@@ -1,20 +1,20 @@
 
 const state = {
 	isLoading: false,
-	user: null,
-	errors: null,
-	isLoggedIn: null,
 }
 
-const getters = {
-	
-}
+
 
 const mutations = {
-	
+	setLoading(state) {
+		state.isLoading = true
+	}
 }
 
 const actions = {
+	register(context){
+		context.commit('setLoading')
+	}
 	
 }
 
@@ -22,5 +22,4 @@ export default {
 	state,
 	mutations,
 	actions,
-	getters,
 }
