@@ -1,5 +1,6 @@
 import { setItem } from '../helpers/pesistantStorage';
 import AuthService from '../services/auth';
+import { gettersTypes } from './types';
 
 const state = {
 	isLoading: false,
@@ -43,6 +44,18 @@ const mutations = {
 	},
 };
 
+const getters = {
+	[gettersTypes.currentUser]: state => {
+		return state.user;
+	},
+	[gettersTypes.isloggedIn]: state => {
+		return Boolean(state.isloggedIn);
+	},
+	[gettersTypes.isAnonymous]: state => {
+		return state.isloggedIn === false
+	},
+};
+
 const actions = {
 	register(context, user) {
 		context.commit('registerStart');
@@ -66,12 +79,12 @@ const actions = {
 		return new Promise((resolve, reject) => {
 			AuthService.login(user)
 				.then(res => {
-					context.commit('loginSuccess');
+					context.commit('loginSuccess', res.data.user);
 					resolve(res.data.user);
 					setItem('token', res.data.user.token);
 				})
 				.catch(err => {
-					context.commit('registerFailure', err.response.data);
+					context.commit('loginFailore', err.response.data);
 					reject(err.response.data);
 				});
 		});
@@ -82,4 +95,5 @@ export default {
 	state,
 	mutations,
 	actions,
+	getters,
 };
