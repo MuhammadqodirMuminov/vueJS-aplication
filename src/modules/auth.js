@@ -6,7 +6,7 @@ const state = {
 	isLoading: false,
 	user: null,
 	error: null,
-	isloggedIn: null,
+	isLoggedIn: null,
 };
 
 const mutations = {
@@ -14,33 +14,46 @@ const mutations = {
 		state.isLoading = true;
 		state.user = null;
 		state.error = null;
-		state.isloggedIn = null;
+		state.isLoggedIn = null;
 	},
 	registerSuccess(state, payload) {
 		state.isLoading = false;
 		state.user = payload;
-		state.isloggedIn = true;
+		state.isLoggedIn = true;
 	},
 	registerFailure(state, payload) {
 		state.isLoading = false;
 		state.error = payload.errors;
-		state.isloggedIn = false;
+		state.isLoggedIn = false;
 	},
 	loginStart(state) {
 		state.isLoading = true;
 		state.user = null;
 		state.error = null;
-		state.isloggedIn = null;
+		state.isLoggedIn = null;
 	},
 	loginSuccess(state, payload) {
 		state.isLoading = false;
 		state.user = payload;
-		state.isloggedIn = true;
+		state.isLoggedIn = true;
 	},
 	loginFailore(state, payload) {
 		state.isLoading = false;
 		state.error = payload;
-		state.isloggedIn = false;
+		state.isLoggedIn = false;
+	},
+	gerUserStart(state) {
+		state.isLoading = true;
+	},
+	getUserSuccess(state, payload) {
+		state.isLoading = false;
+		state.isLoggedIn = true;
+		state.user = payload;
+	},
+	getUserFailore(state) {
+		state.isLoading = false;
+		state.user = null;
+		state.isLoggedIn = false;
 	},
 };
 
@@ -48,11 +61,11 @@ const getters = {
 	[gettersTypes.currentUser]: state => {
 		return state.user;
 	},
-	[gettersTypes.isloggedIn]: state => {
-		return Boolean(state.isloggedIn);
+	[gettersTypes.isLoggedIn]: state => {
+		return Boolean(state.isLoggedIn);
 	},
 	[gettersTypes.isAnonymous]: state => {
-		return state.isloggedIn === false
+		return state.isLoggedIn === false;
 	},
 };
 
@@ -86,6 +99,20 @@ const actions = {
 				.catch(err => {
 					context.commit('loginFailore', err.response.data);
 					reject(err.response.data);
+				});
+		});
+	},
+	getUser(context) {
+		context.commit('gerUserStart');
+
+		return new Promise((resolve, reject) => {
+			AuthService.getUser()
+				.then(res => {
+					context.commit('getUserSuccess', res.data.user);
+					resolve(res.data.user);
+				})
+				.catch(() => {
+					context.commit('getUserFailore');
 				});
 		});
 	},

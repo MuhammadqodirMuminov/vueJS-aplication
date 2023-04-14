@@ -5,7 +5,10 @@ const AuthService = {
 		return axios.post('/users', { user });
 	},
 	login(user) {
-		return axios.post('users/login', { user });
+		return axios.post('/users/login', { user });
+	},
+	getUser() {
+		return axios.get('/user');
 	},
 };
 

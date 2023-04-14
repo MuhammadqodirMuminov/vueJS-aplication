@@ -5,7 +5,7 @@
 		</a>
 
 		<nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-			<template v-if="isloggedIn">
+			<template v-if="isLoggedIn">
 				<RouterLink :to="{ name: 'login' }" class="me-3 pt-3 text-dark text-decoration-none">{{
 					currentUser.username
 				}}</RouterLink>
@@ -38,7 +38,7 @@ export default {
 	computed: {
 		...mapGetters({
 			currentUser: gettersTypes.currentUser,
-			isLoggedIn: gettersTypes.isloggedIn,
+			isLoggedIn: gettersTypes.isLoggedIn,
 			isAnonymous: gettersTypes.isAnonymous,
 		}),
 	},
