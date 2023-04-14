@@ -1,4 +1,4 @@
-import { setItem } from '../helpers/pesistantStorage';
+import { removeItem, setItem } from '../helpers/pesistantStorage';
 import AuthService from '../services/auth';
 import { gettersTypes } from './types';
 
@@ -52,6 +52,10 @@ const mutations = {
 	},
 	getUserFailore(state) {
 		state.isLoading = false;
+		state.user = null;
+		state.isLoggedIn = false;
+	},
+	logout(state) {
 		state.user = null;
 		state.isLoggedIn = false;
 	},
@@ -115,6 +119,10 @@ const actions = {
 					context.commit('getUserFailore');
 				});
 		});
+	},
+	logout(context) {
+		context.commit('logout');
+		removeItem('token');
 	},
 };
 

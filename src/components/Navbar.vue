@@ -10,7 +10,7 @@
 					currentUser.username
 				}}</RouterLink>
 				<RouterLink :to="{ name: 'login' }" class="me-3 py-2 text-dark text-decoration-none">
-					<button class="btn btn-danger">Logout</button>
+					<button @click="logOuthandler" class="btn btn-danger">Logout</button>
 				</RouterLink>
 			</template>
 			<template v-if="isAnonymous">
@@ -46,6 +46,10 @@ export default {
 		toHomePage() {
 			this.$router.push({ name: 'home' });
 		},
+		logOuthandler() {
+			this.$store.dispatch('logout')
+			this.$router.push({ name: 'login' });
+		}
 	},
 };
 </script>
