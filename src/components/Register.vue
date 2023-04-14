@@ -28,7 +28,6 @@ export default {
       username: "",
       email: "",
       password: "",
-      error: "",
     };
   },
 
