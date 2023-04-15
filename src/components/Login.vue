@@ -41,6 +41,7 @@ export default {
 	components: {
 		ValidationError,
 	},
+	mounted: {},
 
 	methods: {
 		submitHandler(e) {

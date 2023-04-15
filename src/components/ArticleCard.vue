@@ -24,7 +24,13 @@
 				<div class="card-footer p-0 pt-3 bg-white">
 					<div class="d-flex justify-content-between align-items-center">
 						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-primary">Read</button>
+							<button
+								type="button"
+								@click="articleDetailhandler"
+								class="btn btn-sm btn-outline-primary"
+							>
+								Read
+							</button>
 							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
 							<button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
 						</div>
@@ -44,6 +50,11 @@ export default {
 		article: {
 			type: Object,
 			required: true,
+		},
+	},
+	methods: {
+		articleDetailhandler() {
+			this.$router.push(`/article/${this.article.slug}`);
 		},
 	},
 };
