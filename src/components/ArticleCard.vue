@@ -31,8 +31,22 @@
 							>
 								Read
 							</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-							<button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+							<button
+								v-if="article.author.username == this.user.username"
+								type="button"
+								class="btn btn-sm btn-outline-secondary"
+							>
+								Edit
+							</button>
+							<button
+								v-if="article.author.username == this.user.username"
+								:disabled="isLoading"
+								@click="DeleteHandler(article.slug)"
+								type="button"
+								class="btn btn-sm btn-outline-danger"
+							>
+								Delete
+							</button>
 						</div>
 						<small class="text-body-secondary">{{
 							new Date(article.createdAt).toLocaleString('us')
@@ -44,6 +58,7 @@
 	</div>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
 	name: 'ArticleCard',
 	props: {
@@ -52,9 +67,20 @@ export default {
 			required: true,
 		},
 	},
+	computed: {
+		...mapState({
+			user: state => state.auth.user,
+			isLoading: state => state.control.isLoading,
+		}),
+	},
 	methods: {
 		articleDetailhandler() {
-			this.$router.push(`/article/${this.article.slug}`);
+			return this.$router.push(`/article/${this.article.slug}`);
+		},
+		DeleteHandler() {
+			return this.$store.dispatch('deletArticle', this.article.slug).then(() => {
+				this.$store.dispatch('articles');
+			});
 		},
 	},
 };

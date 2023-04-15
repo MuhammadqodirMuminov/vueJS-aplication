@@ -5,10 +5,19 @@
 </template>
 
 <script>
-import {Register} from '@/components'
+import { Register } from '@/components';
+import { getItem } from '../helpers/pesistantStorage';
+
 export default {
-	components: {Register},
-}
+	components: { Register },
+	mounted() {
+		const token = getItem('token');
+
+		if (token) {
+			this.$router.push('/');
+		}
+	},
+};
 </script>
 
 <style></style>

@@ -6,6 +6,13 @@
 
 		<nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
 			<template v-if="isLoggedIn">
+				<RouterLink
+					:to="{ name: 'createArticle' }"
+					class="me-3 pt-3 text-dark text-decoration-none"
+				>
+					Create Article
+				</RouterLink>
+
 				<RouterLink :to="{ name: 'login' }" class="me-3 pt-3 text-dark text-decoration-none">{{
 					currentUser.username
 				}}</RouterLink>
@@ -47,9 +54,9 @@ export default {
 			this.$router.push({ name: 'home' });
 		},
 		logOuthandler() {
-			this.$store.dispatch('logout')
+			this.$store.dispatch('logout');
 			this.$router.push({ name: 'login' });
-		}
+		},
 	},
 };
 </script>

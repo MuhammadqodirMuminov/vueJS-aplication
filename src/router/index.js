@@ -1,4 +1,4 @@
-import { ArticleDetailView, HomeView, LoginView, RegisterView } from '@/views';
+import { ArticleDetailView, CreateArticleView, HomeView, LoginView, RegisterView } from '@/views';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -23,6 +23,11 @@ const router = createRouter({
 			path: '/article/:slug',
 			name: 'article',
 			component: ArticleDetailView,
+		},
+		{
+			path: '/create-article',
+			name: 'createArticle',
+			component: CreateArticleView,
 		},
 	],
 });
