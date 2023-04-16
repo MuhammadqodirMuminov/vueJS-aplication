@@ -6,9 +6,18 @@
 </template>
 <script>
 import { CreateForm } from '../components';
+import { getItem } from '../helpers/pesistantStorage';
 export default {
 	components: {
 		CreateForm,
+	},
+
+	mounted() {
+		const token = getItem('token');
+
+		if (!token) {
+			this.$router.push('/login');
+		}
 	},
 };
 </script>

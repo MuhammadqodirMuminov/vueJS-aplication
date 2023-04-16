@@ -12,6 +12,7 @@
 <script>
 import { mapState } from 'vuex';
 import { ArticleCard, Loader } from '../components';
+import { getItem } from '../helpers/pesistantStorage';
 
 export default {
 	computed: {
@@ -27,6 +28,12 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch('articles');
+
+		const token = getItem('token');
+
+		if (!token) {
+			this.$router.push('/login');
+		}
 	},
 };
 </script>

@@ -48,6 +48,22 @@ const actions = {
 				});
 		});
 	},
+	editArticle(context, data) {
+		return new Promise((resolve, reject) => {
+			context.commit('controlArticleStart');
+
+			articleService
+				.editArticle(data.article, data.slug)
+				.then(res => {
+					context.commit('controlArticleSuccess');
+					resolve(res);
+				})
+				.catch(err => {
+					console.log(err);
+					context.commit('controlArticleFailore');
+				});
+		});
+	},
 };
 
 export default { state, actions, mutations };

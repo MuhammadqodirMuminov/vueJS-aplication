@@ -13,6 +13,9 @@ const articleService = {
 	deleteArticle(slug) {
 		return axios.delete(`/articles/${slug}`);
 	},
+	editArticle(article, slug) {
+		return axios.put(`/articles/${slug}`, { article });
+	},
 };
 
 export default articleService;

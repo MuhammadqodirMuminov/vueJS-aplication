@@ -1,4 +1,11 @@
-import { ArticleDetailView, CreateArticleView, HomeView, LoginView, RegisterView } from '@/views';
+import {
+	ArticleDetailView,
+	CreateArticleView,
+	EditArticleView,
+	HomeView,
+	LoginView,
+	RegisterView,
+} from '@/views';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -28,6 +35,11 @@ const router = createRouter({
 			path: '/create-article',
 			name: 'createArticle',
 			component: CreateArticleView,
+		},
+		{
+			path: '/edit-article/:slug',
+			name: 'editArticle',
+			component: EditArticleView,
 		},
 	],
 });

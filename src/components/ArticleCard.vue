@@ -35,6 +35,7 @@
 								v-if="article.author.username == this.user.username"
 								type="button"
 								class="btn btn-sm btn-outline-secondary"
+								@click="navigateHandler"
 							>
 								Edit
 							</button>
@@ -81,6 +82,9 @@ export default {
 			return this.$store.dispatch('deletArticle', this.article.slug).then(() => {
 				this.$store.dispatch('articles');
 			});
+		},
+		navigateHandler() {
+			return this.$router.push(`/edit-article/${this.article.slug}`);
 		},
 	},
 };
